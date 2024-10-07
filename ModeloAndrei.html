@@ -8,10 +8,10 @@
             font-family: Arial, sans-serif; 
             display: flex; 
             flex-direction: column; 
-            align-items: flex-start; /* Alinhando os itens à esquerda */
-            padding: 20px; /* Adicionando algum espaçamento ao redor */
-            background-color: #C0C4B6; /* Fundo do corpo */
-            color: #2F2F2F; /* Cor do texto */
+            align-items: flex-start; 
+            padding: 20px; 
+            background-color: #C0C4B6; 
+            color: #2F2F2F; 
         }
         h1 {
             background-color: #EADFDB;
@@ -21,17 +21,17 @@
             display: inline-block;
             padding: 10px;
             font-size: x-large;
-            background-color: #EADFDB; /* Fundo dos aplicativos Vue */
-            border-radius: 8px; /* Bordas arredondadas */
-            margin-bottom: 20px; /* Espaçamento entre os elementos */
+            background-color: #EADFDB;
+            border-radius: 8px; 
+            margin-bottom: 20px; 
         }
 
         .calculator { 
-            max-width: 400px; /* Aumentando a largura máxima da calculadora */
-            margin: 20px 0; /* Adicionando espaço acima e abaixo */
-            background-color: #EADFDB; /* Fundo da calculadora */
-            padding: 20px; /* Espaçamento interno */
-            border-radius: 8px; /* Bordas arredondadas */
+            max-width: 400px; 
+            margin: 20px 0; 
+            background-color: #EADFDB; 
+            padding: 20px; 
+            border-radius: 8px; 
             border: #00000050 2px solid;
         }
 
@@ -40,43 +40,43 @@
             height: 50px; 
             text-align: right;
             font-size: 2em; 
-            background-color: #AEAFB1; /* Fundo do display */
-            border: none; /* Remover bordas */
-            color: #2F2F2F; /* Cor do texto */
-            border-radius: 4px; /* Bordas arredondadas */
-            margin-bottom: 10px; /* Espaçamento abaixo do display */
+            background-color: #AEAFB1; 
+            border: none; 
+            color: #2F2F2F; 
+            border-radius: 4px; 
+            margin-bottom: 10px; 
             margin-left: 5px;
             border: #00000050 2px solid;
         }
 
         .button { 
-            width: 23%; /* Ajustando a largura dos botões */
+            width: 23%; 
             height: 60px; 
             font-size: 1.5em; 
-            background-color: #F2CFB3; /* Fundo dos botões */
-            border: none; /* Remover bordas */
-            border-radius: 4px; /* Bordas arredondadas */
-            margin: 5px; /* Espaçamento entre os botões */
-            cursor: pointer; /* Cursor de ponteiro ao passar o mouse */
-            transition: background-color 0.3s; /* Transição suave ao passar o mouse */
+            background-color: #F2CFB3; 
+            border: none; 
+            border-radius: 4px; 
+            margin: 5px; 
+            cursor: pointer; 
+            transition: background-color 0.3s; 
             border: #00000050 2px solid;
         }
 
         .button:hover { 
-            background-color: #D8C2B5; /* Cor ao passar o mouse */
+            background-color: #D8C2B5; 
         }
 
         .button.operator { 
-            background-color: #AEAFB1; /* Cor dos botões de operação */
+            background-color: #AEAFB1; 
         }
 
         .button.operator:hover { 
-            background-color: #C0C4B6; /* Cor ao passar o mouse nas operações */
+            background-color: #C0C4B6; 
         }
 
         .button.equals { 
             background-color: #5cb85c; 
-            width: 48%; /* Largura diferente para o botão igual */
+            width: 48%; 
         }
 
         .button.clear { 
@@ -84,20 +84,17 @@
         }
 
         .button-row {
-            display: flex; /* Usando flexbox para manter os botões na mesma linha */
-            justify-content: space-between; /* Espaçamento igual entre os botões */
+            display: flex; 
+            justify-content: space-between; 
         }
     </style>
 
-    <!-- APLICAÇÃO VUE -->
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 </head>
 
 <body>
 
     <h1>Vue Example</h1>
-
-    <p>The message is taken from 'data' inside the Vue instance by writing {{ message }} inside the div with id="app".</p>
 
     <div id="app">
         {{ message }}
@@ -152,9 +149,9 @@
                     message: "Hello World!"
                 }
             }
-        })
+        });
 
-        app.mount('#app')
+        app.mount('#app');
 
         const app2 = Vue.createApp({
             data() {
@@ -162,9 +159,9 @@
                     message: "Mensagem Personalizada!"
                 }
             }
-        })
+        });
 
-        app2.mount('#app2')
+        app2.mount('#app2');
 
         // CALCULADORA
         const calculatorApp = Vue.createApp({
