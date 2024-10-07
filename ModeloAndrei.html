@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>My first Vue page</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: flex-start; /* Alinhando os itens à esquerda */
+            padding: 20px; /* Adicionando algum espaçamento ao redor */
+            background-color: #C0C4B6; /* Fundo do corpo */
+            color: #2F2F2F; /* Cor do texto */
+        }
+        h1 {
+            background-color: #EADFDB;
+        }
+        #app,
+        #app2 {
+            display: inline-block;
+            padding: 10px;
+            font-size: x-large;
+            background-color: #EADFDB; /* Fundo dos aplicativos Vue */
+            border-radius: 8px; /* Bordas arredondadas */
+            margin-bottom: 20px; /* Espaçamento entre os elementos */
+        }
+
+        .calculator { 
+            max-width: 400px; /* Aumentando a largura máxima da calculadora */
+            margin: 20px 0; /* Adicionando espaço acima e abaixo */
+            background-color: #EADFDB; /* Fundo da calculadora */
+            padding: 20px; /* Espaçamento interno */
+            border-radius: 8px; /* Bordas arredondadas */
+            border: #00000050 2px solid;
+        }
+
+        .display { 
+            width: calc(100% - 18px); 
+            height: 50px; 
+            text-align: right;
+            font-size: 2em; 
+            background-color: #AEAFB1; /* Fundo do display */
+            border: none; /* Remover bordas */
+            color: #2F2F2F; /* Cor do texto */
+            border-radius: 4px; /* Bordas arredondadas */
+            margin-bottom: 10px; /* Espaçamento abaixo do display */
+            margin-left: 5px;
+            border: #00000050 2px solid;
+        }
+
+        .button { 
+            width: 23%; /* Ajustando a largura dos botões */
+            height: 60px; 
+            font-size: 1.5em; 
+            background-color: #F2CFB3; /* Fundo dos botões */
+            border: none; /* Remover bordas */
+            border-radius: 4px; /* Bordas arredondadas */
+            margin: 5px; /* Espaçamento entre os botões */
+            cursor: pointer; /* Cursor de ponteiro ao passar o mouse */
+            transition: background-color 0.3s; /* Transição suave ao passar o mouse */
+            border: #00000050 2px solid;
+        }
+
+        .button:hover { 
+            background-color: #D8C2B5; /* Cor ao passar o mouse */
+        }
+
+        .button.operator { 
+            background-color: #AEAFB1; /* Cor dos botões de operação */
+        }
+
+        .button.operator:hover { 
+            background-color: #C0C4B6; /* Cor ao passar o mouse nas operações */
+        }
+
+        .button.equals { 
+            background-color: #5cb85c; 
+            width: 48%; /* Largura diferente para o botão igual */
+        }
+
+        .button.clear { 
+            background-color: #d9534f; 
+        }
+
+        .button-row {
+            display: flex; /* Usando flexbox para manter os botões na mesma linha */
+            justify-content: space-between; /* Espaçamento igual entre os botões */
+        }
+    </style>
+
+    <!-- APLICAÇÃO VUE -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+
+<body>
+
+    <h1>Vue Example</h1>
+
+    <p>The message is taken from 'data' inside the Vue instance by writing {{ message }} inside the div with id="app".</p>
+
+    <div id="app">
+        {{ message }}
+    </div>
+    <div id="app2">
+        {{ message }}
+    </div>
+
+    <div id="calculator" class="calculator">
+        <input type="text" class="display" v-model="display" disabled>
+        
+        <div class="button-row">
+            <button class="button" @click="append('7')">7</button>
+            <button class="button" @click="append('8')">8</button>
+            <button class="button" @click="append('9')">9</button>
+            <button class="button operator" @click="setOperation('/')">/</button>
+        </div>
+        <div class="button-row">
+            <button class="button" @click="append('4')">4</button>
+            <button class="button" @click="append('5')">5</button>
+            <button class="button" @click="append('6')">6</button>
+            <button class="button operator" @click="setOperation('*')">*</button>
+        </div>
+        <div class="button-row">
+            <button class="button" @click="append('1')">1</button>
+            <button class="button" @click="append('2')">2</button>
+            <button class="button" @click="append('3')">3</button>
+            <button class="button operator" @click="setOperation('-')">-</button>
+        </div>
+        <div class="button-row">
+            <button class="button" @click="append('0')">0</button>
+            <button class="button" @click="append('.')">.</button>
+            <button class="button clear" @click="clear">C</button>
+            <button class="button operator" @click="setOperation('+')">+</button>
+        </div>
+        <div class="button-row">
+            <button class="button equals" @click="calculate">=</button>
+            <button class="button" @click="append('Math.sin(')">sin</button>
+            <button class="button" @click="append('Math.cos(')">cos</button>
+            <button class="button" @click="append('Math.tan(')">tan</button>
+        </div>
+        <div class="button-row">
+            <button class="button" @click="append('Math.pow(')">x^y</button>
+            <button class="button" @click="append('Math.sqrt(')">√</button>
+        </div>
+    </div>
+
+    <script>
+        const app = Vue.createApp({
+            data() {
+                return {
+                    message: "Hello World!"
+                }
+            }
+        })
+
+        app.mount('#app')
+
+        const app2 = Vue.createApp({
+            data() {
+                return {
+                    message: "Mensagem Personalizada!"
+                }
+            }
+        })
+
+        app2.mount('#app2')
+
+        // CALCULADORA
+        const calculatorApp = Vue.createApp({
+            data() {
+                return {
+                    display: '',
+                    operation: null,
+                    previousValue: null
+                }
+            },
+            methods: {
+                append(value) {
+                    this.display += value;
+                },
+                setOperation(operation) {
+                    if (this.display) {
+                        this.previousValue = this.display;
+                        this.operation = operation;
+                        this.display = '';
+                    }
+                },
+                clear() {
+                    this.display = '';
+                    this.operation = null;
+                    this.previousValue = null;
+                },
+                calculate() {
+                    if (this.previousValue !== null && this.display) {
+                        let result;
+                        const prev = parseFloat(this.previousValue);
+                        const current = parseFloat(this.display);
+                        
+                        switch (this.operation) {
+                            case '+':
+                                result = prev + current;
+                                break;
+                            case '-':
+                                result = prev - current;
+                                break;
+                            case '*':
+                                result = prev * current;
+                                break;
+                            case '/':
+                                result = prev / current;
+                                break;
+                        }
+                        this.display = result;
+                        this.operation = null;
+                        this.previousValue = null;
+                    }
+                }
+            }
+        });
+
+        calculatorApp.mount('#calculator');
+    </script>
+
+</body>
+
+</html>
