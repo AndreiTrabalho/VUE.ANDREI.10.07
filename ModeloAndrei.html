@@ -49,6 +49,23 @@
             border: #00000050 2px solid;
         }
 
+        .history { 
+            width: calc(100% - 18px); 
+            height: 30px; 
+            text-align: right;
+            font-size: 1.2em; 
+            background-color: #D8D8D8; 
+            border: none; 
+            color: #2F2F2F; 
+            border-radius: 4px; 
+            margin-bottom: 10px; 
+            margin-left: 5px;
+            border: #00000050 2px solid;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+
         .button { 
             width: 23%; 
             height: 60px; 
@@ -104,6 +121,7 @@
     </div>
 
     <div id="calculator" class="calculator">
+        <input type="text" class="history" :value="history" disabled>
         <input type="text" class="display" v-model="display" disabled>
         
         <div class="button-row">
@@ -169,15 +187,17 @@
                 return {
                     display: '',
                     operation: null,
-                    previousValue: null
+                    previousValue: null,
+                    history: '' // Nova propriedade para histórico
                 }
             },
             methods: {
                 append(value) {
-                    this.display += value;
+                    this.display += value; // Atualiza apenas o display
                 },
                 setOperation(operation) {
                     if (this.display) {
+                        this.history += (this.history ? ' ' : '') + this.display + ' ' + operation + ' '; // Adiciona ao histórico
                         this.previousValue = this.display;
                         this.operation = operation;
                         this.display = '';
@@ -187,6 +207,7 @@
                     this.display = '';
                     this.operation = null;
                     this.previousValue = null;
+                    this.history = ''; // Limpa o histórico
                 },
                 calculate() {
                     if (this.previousValue !== null && this.display) {
@@ -208,6 +229,7 @@
                                 result = prev / current;
                                 break;
                         }
+                        this.history += ' ' + this.display + ' = ' + result; // Atualiza o histórico com o resultado
                         this.display = result;
                         this.operation = null;
                         this.previousValue = null;
